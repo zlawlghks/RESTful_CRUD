@@ -48,4 +48,9 @@ public class PostController {
         return postRepository.save(post);
     }
 
+    @DeleteMapping("/posts/{id}")
+    public void deletePost(@PathVariable int id) {
+        postRepository.deleteById(id);
+    }
+
 }
