@@ -3,9 +3,8 @@ package zlawlghks.restfulcrud.Controller;
 import org.hibernate.EntityMode;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import zlawlghks.restfulcrud.Domain.Post;
 import zlawlghks.restfulcrud.PostNotFoundException;
 import zlawlghks.restfulcrud.Repository.PostRepository;
@@ -43,6 +42,10 @@ public class PostController {
         return entityModel;
     }
 
-
+    // 게시글 생성
+    @PostMapping("/posts/{id}")
+    public Post createPost(@PathVariable int id, @RequestBody Post post) {
+        return postRepository.save(post);
+    }
 
 }
