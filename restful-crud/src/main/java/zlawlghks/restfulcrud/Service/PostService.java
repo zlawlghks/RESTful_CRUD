@@ -6,16 +6,18 @@ import zlawlghks.restfulcrud.Domain.Post;
 import zlawlghks.restfulcrud.Repository.PostRepository;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 @Service
 public class PostService {
-    private static List<Post> post = new ArrayList<>();
 
     @Autowired
     private PostRepository postRepository;
+
+
+
+    private static List<Post> post = new ArrayList<>();
     private static int postCount = 0;
 
 
