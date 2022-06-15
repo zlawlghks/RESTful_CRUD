@@ -62,7 +62,7 @@ public class PostJpaController {
     public ResponseEntity<Post> updatePost(@PathVariable int id, @RequestBody Post post) {
         Optional<Post> optionalPost = postRepository.findById(id);
 
-        if (!optionalPost.isEmpty()) {
+        if (!optionalPost.isPresent()) {
             throw new PostNotFoundException(String.format("ID{%s} not found", id));
         }
         Post storedPost = optionalPost.get();
