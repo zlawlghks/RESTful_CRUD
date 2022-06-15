@@ -10,7 +10,6 @@ import zlawlghks.restfulcrud.Domain.Post;
 import zlawlghks.restfulcrud.PostNotFoundException;
 import zlawlghks.restfulcrud.Repository.PostRepository;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,15 +29,16 @@ public class PostJpaController {
 
     // 게시물 상세 조회
     @GetMapping("/posts/{id}")
-    public EntityModel<Post> retreievePost(@PathVariable int id) {
+    public EntityModel<Post> retrievePost(@PathVariable int id) {
         Optional<Post> post = postRepository.findById(id);
 
-        if (!post.isPresent()) {
+        if (post.isEmpty()) {
             throw new PostNotFoundException(String.format("ID[%s] not found", id));
         }
         EntityModel<Post> entityModel = EntityModel.of(post.get());
         WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).retrieveAllPost());
         entityModel.add(linkto.withRel("all-posts"));
+
         return entityModel;
     }
 
