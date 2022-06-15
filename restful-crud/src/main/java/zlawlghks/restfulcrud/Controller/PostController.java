@@ -23,6 +23,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 public class PostController {
 
+    @Autowired
+    private PostRepository postRepository;
     private PostDaoService service;
     public PostController(PostDaoService service){
         this.service = service;
@@ -62,6 +64,18 @@ public class PostController {
 
         return ResponseEntity.created(location).build();
     }
+
+    // 게시글 수정
+
+    @PutMapping("/posts/{id}")
+    public void updatePost(@PathVariable int id, @RequestBody Post post) {
+        Post updatePost = service.updatePost(id, post);
+
+        if (updatePost == null) {
+            throw new PostNotFoundException(String.format("ID[%s] not found", post.getId()));
+        }
+    }
+
 
     // 게시글 삭제
     @DeleteMapping("/posts/{id}")

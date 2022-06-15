@@ -44,6 +44,19 @@ public class PostDaoService {
         return posts;
     }
 
+    // 게시물 수정
+    public Post updatePost(int id, Post posts) {
+        for (Post storedPost : post) {
+            if (storedPost.getId() == id) {
+                storedPost.setBoardName(posts.getBoardName());
+                storedPost.setDescription(posts.getDescription());
+
+                return storedPost;
+            }
+        }
+        return null;
+    }
+
 
     // 게시글 삭제
     public Post deleteById(int id) {
