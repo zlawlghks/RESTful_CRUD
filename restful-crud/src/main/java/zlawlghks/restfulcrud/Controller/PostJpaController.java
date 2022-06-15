@@ -31,7 +31,7 @@ public class PostJpaController {
 
     // 게시물 상세 조회
     @GetMapping("/posts/{id}")
-    public EntityModel<Post> retrievePost(@PathVariable int id) {
+    public EntityModel<Post> retrievePost(@PathVariable Integer id) {
         Optional<Post> post = postRepository.findById(id);
 
         if (!post.isPresent()) {
@@ -59,7 +59,7 @@ public class PostJpaController {
 
     // 게시물 수정
     @PutMapping("/posts/{id}")
-    public ResponseEntity<Post> updatePost(@PathVariable int id, @RequestBody Post post) {
+    public ResponseEntity<Post> updatePost(@PathVariable Integer id, @RequestBody Post post) {
         Optional<Post> optionalPost = postRepository.findById(id);
 
         if (!optionalPost.isPresent()) {
@@ -81,7 +81,7 @@ public class PostJpaController {
 
     // 게시물 삭제
     @DeleteMapping("/posts/{id}")
-    public void deletePost(@PathVariable int id) {
+    public void deletePost(@PathVariable Integer id) {
         Optional<Post> post = postRepository.findById(id);
 
         if (!post.isPresent()) {
