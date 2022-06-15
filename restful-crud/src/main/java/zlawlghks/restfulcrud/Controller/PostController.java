@@ -36,10 +36,6 @@ public class PostController {
     public EntityModel<Post> retrievePost(@PathVariable int id) {
         Post post = service.findOne(id);
 
-        if (post == null) {
-            throw new PostNotFoundException(String.format("ID{%s} not found", id));
-        }
-
         EntityModel<Post> entityModel = EntityModel.of(post);
         WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).retrieveAllPost());
         entityModel.add(linkto.withRel("all-posts"));
@@ -50,7 +46,7 @@ public class PostController {
     // 게시글 생성
     @PostMapping("/posts")
     public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) {
-        Post posts = service.save(post);
+        Post posts = service.savePost(post);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path(("/{id}"))
@@ -63,22 +59,14 @@ public class PostController {
     // 게시글 수정
     @PutMapping("/posts/{id}")
     public void updatePost(@PathVariable int id, @RequestBody Post post) {
-        Post updatePost = service.updatePost(id, post);
-
-        if (updatePost == null) {
-            throw new PostNotFoundException(String.format("ID[%s] not found", post.getId()));
-        }
+        service.updatePost(id, post);
     }
 
 
     // 게시글 삭제
     @DeleteMapping("/posts/{id}")
     public void deletePost(@PathVariable int id) {
-        Post post = service.deleteById(id);
-
-        if (post == null) {
-            throw new PostNotFoundException(String.format("ID[%s] not found", id));
-        }
+        service.deletePost(id);
     }
 
 }

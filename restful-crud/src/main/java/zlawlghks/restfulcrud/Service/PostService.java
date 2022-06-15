@@ -3,24 +3,16 @@ package zlawlghks.restfulcrud.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zlawlghks.restfulcrud.Domain.Post;
+import zlawlghks.restfulcrud.PostNotFoundException;
 import zlawlghks.restfulcrud.Repository.PostRepository;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PostService {
 
     @Autowired
     private PostRepository postRepository;
-
-
-    private static List<Post> post = new ArrayList<>();
-    private static int postCount = 0;
-
-
 
 
     // 게시글 목록 조회
@@ -30,52 +22,41 @@ public class PostService {
 
     // 게시글 상세 조회
     public Post findOne(Integer id) {
-        for (Post posts : post) {
-            if (posts.getId() == id) {
-                return posts;
-            }
+        Optional<Post> post = postRepository.findById(id);
+        if (post.isEmpty()) {
+            throw new PostNotFoundException(String.format("ID{%s} not found", id));
+        } else {
+            return post.get();
         }
-        return null;
     }
 
     // 게시글 생성
-    public Post save(Post posts) {
-        if (posts.getId() == null) {
-            posts.setId(++postCount);
-        }
-        postRepository.save(posts);
-        post.add(posts);
-        return posts;
+    public Post savePost(Post post) {
+        return postRepository.save(post);
     }
 
     // 게시물 수정
-    public Post updatePost(Integer id, Post posts) {
-        for (Post storedPost : post) {
-            if (storedPost.getId() == id) {
-                storedPost.setBoardName(posts.getBoardName());
-                storedPost.setDescription(posts.getDescription());
-
-                postRepository.save(storedPost);
-                return storedPost;
-            }
+    public void updatePost(Integer id, Post post) {
+        Optional<Post> optionalPost = postRepository.findById(id);
+        if (optionalPost.isEmpty()) {
+            throw new PostNotFoundException(String.format("ID[%s] not found", post.getId()));
+        } else {
+            Post savedPost = optionalPost.get();
+            savedPost.setBoardName(post.getBoardName());
+            savedPost.setDescription(post.getDescription());
+            postRepository.save(savedPost);
         }
-        return null;
     }
 
 
     // 게시글 삭제
-    public Post deleteById(Integer id) {
-        Iterator<Post> iterator = post.iterator();
-
-        while (iterator.hasNext()) {
-            Post posts = iterator.next();
-
-            if (posts.getId() == id) {
-                postRepository.delete(posts);
-                iterator.remove();
-                return posts;
-            }
+    public void deletePost(Integer id) {
+        Optional<Post> optionalPost = postRepository.findById(id);
+        if (optionalPost.isEmpty()) {
+            throw new PostNotFoundException(String.format("ID[%s] not found", id));
+        } else {
+            Post post = optionalPost.get();
+            postRepository.delete(post);
         }
-        return null;
     }
 }
