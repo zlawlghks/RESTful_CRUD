@@ -20,6 +20,7 @@
 //        post.add(new Post(3, "jh3", "good boy3", new Date()));
 //    }
 //
+//
 //    // 게시글 목록 조회
 //    public List<Post> findAll() {
 //        return post;
