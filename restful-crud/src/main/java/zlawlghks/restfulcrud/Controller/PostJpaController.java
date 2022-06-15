@@ -58,6 +58,26 @@ public class PostJpaController {
     }
 
     // 게시물 수정
+    @PutMapping("/posts/{id}")
+    public ResponseEntity<Post> updatePost(@PathVariable int id, @RequestBody Post post) {
+        Optional<Post> optionalPost = postRepository.findById(id);
+
+        if (!optionalPost.isEmpty()) {
+            throw new PostNotFoundException(String.format("ID{%s} not found", id));
+        }
+        Post storedPost = optionalPost.get();
+        storedPost.setBoardName(post.getBoardName());
+        storedPost.setDescription(post.getDescription());
+
+        Post updatePost = postRepository.save(storedPost);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(updatePost.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
+    }
 
     // 게시물 삭제
 }
