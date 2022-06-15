@@ -3,13 +3,15 @@ package zlawlghks.restfulcrud.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import zlawlghks.restfulcrud.Domain.Post;
 import zlawlghks.restfulcrud.PostNotFoundException;
 import zlawlghks.restfulcrud.Repository.PostRepository;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +45,17 @@ public class PostJpaController {
     }
 
     // 게시물 생성
+    @PostMapping("/posts")
+    public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) {
+        Post savedPost = postRepository.save(post);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedPost.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
+    }
 
     // 게시물 수정
 
