@@ -80,4 +80,8 @@ public class PostJpaController {
     }
 
     // 게시물 삭제
+    @DeleteMapping("/posts/{id}")
+    public void deletePost(@PathVariable int id) {
+        postRepository.deleteById(id);
+    }
 }
