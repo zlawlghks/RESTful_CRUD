@@ -64,7 +64,7 @@ public class PostService {
 
 
     // 게시글 삭제
-    public Post deleteById(int id) {
+    public Post deleteById(Integer id) {
         Iterator<Post> iterator = post.iterator();
 
         while (iterator.hasNext()) {
