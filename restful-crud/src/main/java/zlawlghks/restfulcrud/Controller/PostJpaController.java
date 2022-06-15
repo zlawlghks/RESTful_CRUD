@@ -34,7 +34,7 @@ public class PostJpaController {
     public EntityModel<Post> retrievePost(@PathVariable int id) {
         Optional<Post> post = postRepository.findById(id);
 
-        if (post.isEmpty()) {
+        if (!post.isPresent()) {
             throw new PostNotFoundException(String.format("ID[%s] not found", id));
         }
         EntityModel<Post> entityModel = EntityModel.of(post.get());
