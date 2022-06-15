@@ -46,7 +46,7 @@ public class PostJpaController {
 
     // 게시물 생성
     @PostMapping("/posts")
-    public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) {
+    public ResponseEntity<Post> createPost(@RequestBody Post post) {
         Post savedPost = postRepository.save(post);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -82,6 +82,12 @@ public class PostJpaController {
     // 게시물 삭제
     @DeleteMapping("/posts/{id}")
     public void deletePost(@PathVariable int id) {
-        postRepository.deleteById(id);
+        Optional<Post> post = postRepository.findById(id);
+
+        if (!post.isPresent()) {
+            throw new PostNotFoundException(String.format("ID[%s] not found", id));
+        } else {
+            postRepository.deleteById(id);
+        }
     }
 }
