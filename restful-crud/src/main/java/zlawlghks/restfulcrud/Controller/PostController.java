@@ -62,7 +62,6 @@
 //    }
 //
 //    // 게시글 수정
-//
 //    @PutMapping("/posts/{id}")
 //    public void updatePost(@PathVariable int id, @RequestBody Post post) {
 //        Post updatePost = service.updatePost(id, post);
