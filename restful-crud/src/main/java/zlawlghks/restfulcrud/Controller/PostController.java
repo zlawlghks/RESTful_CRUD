@@ -33,7 +33,7 @@ public class PostController {
 
     // 게시글 상세 조회
     @GetMapping("/posts/{id}")
-    public EntityModel<Post> retrievePost(@PathVariable int id) {
+    public EntityModel<Post> retrievePost(@PathVariable Integer id) {
         Post post = service.findOne(id);
 
         EntityModel<Post> entityModel = EntityModel.of(post);
@@ -58,14 +58,14 @@ public class PostController {
 
     // 게시글 수정
     @PutMapping("/posts/{id}")
-    public void updatePost(@PathVariable int id, @RequestBody Post post) {
+    public void updatePost(@PathVariable Integer id, @RequestBody Post post) {
         service.updatePost(id, post);
     }
 
 
     // 게시글 삭제
     @DeleteMapping("/posts/{id}")
-    public void deletePost(@PathVariable int id) {
+    public void deletePost(@PathVariable Integer id) {
         service.deletePost(id);
     }
 
