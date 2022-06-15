@@ -22,4 +22,11 @@ public class Post {
     private String description; // 게시물 내용
     private String boardName; // 게시물 이름
     private Date joinDate; // 등록 시간
+
+    public Post(int id, String description, String boardName, Date joinDate) {
+        this.id = id;
+        this.boardName = boardName;
+        this.description = description;
+        this.joinDate = joinDate;
+    }
 }

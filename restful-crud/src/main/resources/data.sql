@@ -1,0 +1,1 @@
+insert into Post values(90001, 'hghgh', 'User2', now());

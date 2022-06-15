@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import zlawlghks.restfulcrud.Domain.Post;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,7 +12,13 @@ import java.util.List;
 public class PostDaoService {
     private static List<Post> post = new ArrayList<>();
 
-    private static int postCount = 0;
+    private static int postCount = 3;
+
+    static {
+        post.add(new Post(1, "jh1", "good boy1", new Date()));
+        post.add(new Post(2, "jh2", "good boy2", new Date()));
+        post.add(new Post(3, "jh3", "good boy3", new Date()));
+    }
 
     // 게시글 목록 조회
     public List<Post> findAll() {
@@ -19,7 +26,7 @@ public class PostDaoService {
     }
 
     // 게시글 상세 조회
-    public Post findByOne(int id) {
+    public Post findOne(int id) {
         for (Post posts : post) {
             if (posts.getId() == id) {
                 return posts;

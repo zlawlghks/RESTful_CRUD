@@ -1,14 +1,19 @@
 package zlawlghks.restfulcrud.Controller;
 
 import org.hibernate.EntityMode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import zlawlghks.restfulcrud.Domain.Post;
 import zlawlghks.restfulcrud.PostNotFoundException;
 import zlawlghks.restfulcrud.Repository.PostRepository;
+import zlawlghks.restfulcrud.Service.PostDaoService;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,24 +23,27 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 public class PostController {
 
-    private PostRepository postRepository;
+    private PostDaoService service;
+    public PostController(PostDaoService service){
+        this.service = service;
+    }
 
     // 게시글 목록 조회
     @GetMapping("/posts")
     public List<Post> retrieveAllPost() {
-        return postRepository.findAll();
+        return service.findAll();
     }
 
     // 게시글 상세 조회
     @GetMapping("/posts/{id}")
     public EntityModel<Post> retrievePost(@PathVariable int id) {
-        Optional<Post> post = postRepository.findById(id);
+        Post post = service.findOne(id);
 
-        if (!post.isPresent()) {
+        if (post == null) {
             throw new PostNotFoundException(String.format("ID{%s} not found", id));
         }
 
-        EntityModel<Post> entityModel = EntityModel.of(post.get());
+        EntityModel<Post> entityModel = EntityModel.of(post);
         WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).retrieveAllPost());
         entityModel.add(linkto.withRel("all-posts"));
 
@@ -43,14 +51,26 @@ public class PostController {
     }
 
     // 게시글 생성
-    @PostMapping("/posts/{id}")
-    public Post createPost(@PathVariable int id, @RequestBody Post post) {
-        return postRepository.save(post);
+    @PostMapping("/posts")
+    public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) {
+        Post posts = service.save(post);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path(("/{id}"))
+                .buildAndExpand(post.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
+    // 게시글 삭제
     @DeleteMapping("/posts/{id}")
     public void deletePost(@PathVariable int id) {
-        postRepository.deleteById(id);
+        Post post = service.deleteById(id);
+
+        if (post == null) {
+            throw new PostNotFoundException(String.format("ID[%s] not found", id));
+        }
     }
 
 }
