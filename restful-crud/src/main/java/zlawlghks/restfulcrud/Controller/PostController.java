@@ -27,17 +27,17 @@ public class PostController {
 
     // 게시글 목록 조회
     @GetMapping("/posts")
-    public List<Post> retrieveAllPost() {
+    public List<Post> getAllPost() {
         return service.findAll();
     }
 
     // 게시글 상세 조회
     @GetMapping("/posts/{id}")
-    public EntityModel<Post> retrievePost(@PathVariable Integer id) {
+    public EntityModel<Post> getPost(@PathVariable Integer id) {
         Post post = service.findOne(id);
 
         EntityModel<Post> entityModel = EntityModel.of(post);
-        WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).retrieveAllPost());
+        WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).getAllPost());
         entityModel.add(linkto.withRel("all-posts"));
 
         return entityModel;
