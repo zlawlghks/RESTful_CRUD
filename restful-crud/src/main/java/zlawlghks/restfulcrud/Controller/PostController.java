@@ -22,9 +22,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class PostController {
-
-    @Autowired
-    private PostRepository postRepository;
     private PostDaoService service;
     public PostController(PostDaoService service){
         this.service = service;
