@@ -39,7 +39,7 @@ public class PostService {
     public void updatePost(Integer id, Post post) {
         Optional<Post> optionalPost = postRepository.findById(id);
         if (optionalPost.isEmpty()) {
-            throw new PostNotFoundException(String.format("ID[%s] not found", post.getId()));
+            throw new PostNotFoundException(String.format("ID[%s] not found", id));
         } else {
             Post savedPost = optionalPost.get();
             savedPost.setBoardName(post.getBoardName());
