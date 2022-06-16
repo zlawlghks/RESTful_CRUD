@@ -1,17 +1,14 @@
 package zlawlghks.restfulcrud.Controller;
 
-import org.hibernate.EntityMode;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import zlawlghks.restfulcrud.Domain.Post;
-import zlawlghks.restfulcrud.PostNotFoundException;
 import zlawlghks.restfulcrud.Service.PostService;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -45,7 +42,7 @@ public class PostController {
 
     // 게시글 생성
     @PostMapping("/posts")
-    public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) {
+    public ResponseEntity<Post> createPost(@RequestBody Post post) {
         Post posts = service.savePost(post);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
