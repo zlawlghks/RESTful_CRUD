@@ -22,11 +22,11 @@ public class PostService {
 
     // 게시글 상세 조회
     public Post findOne(Integer id) {
-        Optional<Post> post = postRepository.findById(id);
-        if (post.isEmpty()) {
+        Optional<Post> optionalPost = postRepository.findById(id);
+        if (optionalPost.isEmpty()) {
             throw new PostNotFoundException(String.format("ID{%s} not found", id));
         } else {
-            return post.get();
+            return optionalPost.get();
         }
     }
 
