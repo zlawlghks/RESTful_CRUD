@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,4 +35,7 @@ public class Users extends BaseTimeEntity {
         this.userName = userName;
         this.userPassword = userPassword;
     }
+
+    @OneToMany(mappedBy = "users")
+    private List<Board> board;
 }

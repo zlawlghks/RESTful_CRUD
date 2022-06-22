@@ -31,4 +31,8 @@ public class Board extends BaseTimeEntity {
         this.title = title;
         this.content = content;
     }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Users users;
 }
