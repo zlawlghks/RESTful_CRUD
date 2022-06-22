@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,13 +20,11 @@ public class Users extends BaseTimeEntity {
     private Integer userId;
     private String userName;
     private String userPassword;
-    private Date userCreateDate;
 
     @Builder
-    public Users(String userName, String userPassword, Date userCreateDate) {
+    public Users(String userName, String userPassword) {
         this.userName = userName;
         this.userPassword = userPassword;
-        this.userCreateDate = userCreateDate;
     }
 
 
