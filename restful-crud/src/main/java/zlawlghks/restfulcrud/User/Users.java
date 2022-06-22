@@ -17,7 +17,7 @@ import java.util.Date;
 public class Users {
     @Id
     @GeneratedValue
-    private Integer userid;
+    private Integer userId;
     private String userName;
     private String userPassword;
     private Date userCreateDate;
