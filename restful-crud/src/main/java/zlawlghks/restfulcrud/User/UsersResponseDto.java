@@ -16,7 +16,7 @@ public class UsersResponseDto {
     private Date userCreateDate;
 
     public void toUserResponseDto(Users user) {
-        this.userId = user.getUserid();
+        this.userId = user.getUserId();
         this.userName = user.getUserName();
         this.userPassword = user.getUserPassword();
         this.userCreateDate = user.getUserCreateDate();
