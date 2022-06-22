@@ -11,3 +11,6 @@ h2, lombok, jpa, web 사용
 <br>
 - ResponseDto, RequestDto, EntityClass 나눠서 데이터 전달
 <br>
+-기존 게시글 삭제
+<br>
+
