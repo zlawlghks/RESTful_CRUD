@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Users {
+public class Users extends BaseTimeEntity {
     @Id
     @GeneratedValue
     private Integer userId;
