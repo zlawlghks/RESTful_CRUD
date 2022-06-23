@@ -43,13 +43,14 @@ public class UsersService {
 
     // 회원 삭제
     @Transactional(readOnly = false)
-    public String deleteUser(Integer userId) {
+    public String UsersResponseDto(Integer userId) {
         Optional<Users> optionalUser = usersRepository.findById(userId);
         if (optionalUser.isEmpty()) {
             throw new NotFoundException(String.format("User ID:{%s} Not Found!", userId));
         } else {
+            UsersResponseDto usersResponseDto = new UsersResponseDto(optionalUser.get());
             usersRepository.deleteById(userId);
-            return "delete OK!";
+            return usersResponseDto;
         }
     }
 
