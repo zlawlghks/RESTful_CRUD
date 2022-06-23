@@ -31,7 +31,8 @@ public class UsersController {
     // 유저 삭제
     @DeleteMapping("/users/{id}")
     public ResponseEntity<UsersResponseDto> delete(@PathVariable Integer id) {
-        return new ResponseEntity<>(usersService.deleteUser(id), HttpStatus.OK);
+        usersService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     // 유저 전체 조회
