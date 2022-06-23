@@ -37,9 +37,7 @@ public class UsersService {
             throw new NotFoundException(String.format("User ID:{%s} Not Found!", userId));
         } else {
             optionalUser.get().update(usersRequestDto.getUserName(), usersRequestDto.getUserPassword());
-            UsersResponseDto usersResponseDto = new UsersResponseDto();
-            usersResponseDto.toUserResponseDto(optionalUser.get());
-            return usersResponseDto;
+            return return new UsersResponseDto(optionalUser.get());
         }
     }
 
