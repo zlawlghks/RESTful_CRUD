@@ -33,7 +33,8 @@ public class BoardController {
     // 삭제
     @DeleteMapping("/posts/{id}")
     public ResponseEntity<BoardResponseDto> delete(@PathVariable Integer id) {
-        return new ResponseEntity<>(boardService.deleteBoard(id), HttpStatus.OK);
+        boardService.deleteBoard(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     // 전체 조회
