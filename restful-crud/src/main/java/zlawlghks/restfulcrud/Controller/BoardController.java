@@ -32,13 +32,13 @@ public class BoardController {
 
     // 삭제
     @DeleteMapping("/posts/{id}")
-    public ResponseEntity<String> delete(@PathVariable Integer id) {
+    public ResponseEntity<BoardResponseDto> delete(@PathVariable Integer id) {
         return new ResponseEntity<>(boardService.deleteBoard(id), HttpStatus.OK);
     }
 
     // 전체 조회
     @GetMapping("/posts")
-    public ResponseEntity<List> getAll() {
+    public ResponseEntity<List<BoardResponseDto>> getAll() {
         return new ResponseEntity<>(boardService.getAllBoard(), HttpStatus.OK);
     }
 

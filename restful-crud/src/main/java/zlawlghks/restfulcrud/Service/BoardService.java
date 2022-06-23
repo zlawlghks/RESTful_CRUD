@@ -44,19 +44,22 @@ public class BoardService {
 
     // 게시글 삭제
     @Transactional(readOnly = false)
-    public String deleteBoard(Integer boardId) {
+    public BoardResponseDto deleteBoard(Integer boardId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         if (optionalBoard.isEmpty()) {
             throw new NotFoundException(String.format("Board ID:{%s} Not Found!", boardId));
         } else {
+            BoardResponseDto responseDto = new BoardResponseDto(optionalBoard.get());
             boardRepository.deleteById(boardId);
-            return "delete OK!";
+            return responseDto;
         }
     }
 
     // 게시글 전체 조회
-    public List<Board> getAllBoard() {
-        return boardRepository.findAll();
+    public List<BoardResponseDto> getAllBoard() {
+        return boardRepository.findAll().stream()
+                .map(BoardResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     // 게시글 상세 조회
