@@ -65,10 +65,7 @@ public class UsersService {
         if (optionalUser.isEmpty()) {
             throw new NotFoundException(String.format("User ID:{%s} Not Found!", userId));
         } else {
-            UsersResponseDto usersResponseDto = new UsersResponseDto();
-            usersResponseDto.toUserResponseDto(optionalUser.get());
-
-            return usersResponseDto;
+            return new UsersResponseDto(optionalUser.get());
         }
     }
 
