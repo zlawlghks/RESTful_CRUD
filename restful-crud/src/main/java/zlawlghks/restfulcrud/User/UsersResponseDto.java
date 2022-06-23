@@ -13,7 +13,7 @@ public class UsersResponseDto {
     private String userName;
     private String userPassword;
 
-    public void toUserResponseDto(Users user) {
+    public UsersResponseDto(Users user) {
         this.userId = user.getUserId();
         this.userName = user.getUserName();
         this.userPassword = user.getUserPassword();

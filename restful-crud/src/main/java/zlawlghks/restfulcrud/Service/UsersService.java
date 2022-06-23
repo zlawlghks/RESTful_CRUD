@@ -26,10 +26,7 @@ public class UsersService {
         Users user = usersRequestDto.toUserEntity();
         usersRepository.save(user);
 
-        UsersResponseDto usersResponseDto = new UsersResponseDto();
-        usersResponseDto.toUserResponseDto(user);
-
-        return usersResponseDto;
+        return new UsersResponseDto(user);
     }
 
     // 회원 수정
