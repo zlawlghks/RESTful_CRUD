@@ -36,7 +36,7 @@ public class UsersController {
 
     // 유저 전체 조회
     @GetMapping("/users")
-    public ResponseEntity<List> getAll() {
+    public ResponseEntity<List<UsersRequestDto>> getAll() {
         return new ResponseEntity<>(usersService.getAllUser(), HttpStatus.OK);
     }
 
