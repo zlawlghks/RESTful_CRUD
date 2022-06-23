@@ -55,7 +55,7 @@ public class UsersService {
     }
 
     // 회원 전체 조회
-    public List<Users> getAllUser() {
+    public List<UsersResponseDto> getAllUser() {
         return usersRepository.findAll().stream()
                 .map(UsersResponseDto::new)
                 .collect(Collectors.toList());
