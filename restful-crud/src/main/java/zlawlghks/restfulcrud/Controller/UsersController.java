@@ -19,13 +19,13 @@ public class UsersController {
     // 유저 생성
     @PostMapping("/users")
     public ResponseEntity<UsersResponseDto> create(@RequestBody UsersRequestDto usersRequestDto) {
-        return new ResponseEntity<>(usersService.createUser(usersRequestDto), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(usersService.createUser(usersRequestDto));
     }
 
     // 유저 수정
     @PutMapping("/users/{id}")
     public ResponseEntity<UsersResponseDto> update(@PathVariable Integer id, @RequestBody UsersRequestDto usersRequestDto) {
-        return new ResponseEntity<>(usersService.updateUser(id, usersRequestDto), HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(usersService.updateUser(id, usersRequestDto));
     }
 
     // 유저 삭제
@@ -37,13 +37,13 @@ public class UsersController {
 
     // 유저 전체 조회
     @GetMapping("/users")
-    public ResponseEntity<List<UsersRequestDto>> getAll() {
-        return new ResponseEntity<>(usersService.getAllUser(), HttpStatus.OK);
+    public ResponseEntity<List<UsersResponseDto>> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(usersService.getAllUser());
     }
 
     // 유저 상세 조회
     @GetMapping("users/{id}")
     public ResponseEntity<UsersResponseDto> getOne(@PathVariable Integer id) {
-        return new ResponseEntity<>(usersService.getOneUser(id), HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(usersService.getOneUser(id));
     }
 }
