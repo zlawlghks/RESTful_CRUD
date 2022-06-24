@@ -29,4 +29,10 @@ public class BoardByUserController {
     public ResponseEntity<List<BoardResponseDto>> getAllBoardByUser(@PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.OK).body(boardByUserService.getAllBoardByUser(id));
     }
+
+    // 유저 + 게시글 전체 조회
+    @GetMapping("/users/posts")
+    public ResponseEntity<List<AllUserAndBoardDto>> getAllUserAndBoard() {
+        return ResponseEntity.status(HttpStatus.OK).body(boardByUserService.getALlUserAndBoard());
+    }
 }
