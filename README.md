@@ -16,3 +16,9 @@ h2, lombok, jpa, web 사용
 2022.06.23
 <br>
 - BoardService에 전체 조회, 삭제 부분 ResponseDto로 변경
+---
+2022.06.24
+<br>
+- UsersController, BoardController ResponseEntity 수정
+- 회원, 게시글 서비스, 컨트롤러 추가 (BoardByUserService, BoardByUserController)
+- 회원이 생성한 게시글, 회원이 생성한 게시글 조회 기능
