@@ -18,34 +18,34 @@ public class BoardController {
     private final BoardService boardService;
     // 게시글 생성, 수정, 삭제, 조회
 
-    // 생성
+    // 게시글 생성
     @PostMapping("/posts")
     public ResponseEntity<BoardResponseDto> create(@RequestBody BoardRequestDto boardRequestDto) {
-        return new ResponseEntity<>(boardService.createBoard(boardRequestDto), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(boardService.createBoard(boardRequestDto));
     }
 
-    // 수정
+    // 게시글 수정
     @PutMapping("/posts/{id}")
     public ResponseEntity<BoardResponseDto> update(@PathVariable Integer id, @RequestBody BoardRequestDto boardRequestDto) {
-        return new ResponseEntity<>(boardService.updateBoard(id, boardRequestDto), HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(boardService.updateBoard(id, boardRequestDto));
     }
 
-    // 삭제
+    // 게시글 삭제
     @DeleteMapping("/posts/{id}")
-    public ResponseEntity<BoardResponseDto> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         boardService.deleteBoard(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204번
     }
 
-    // 전체 조회
+    // 게시글 전체 조회
     @GetMapping("/posts")
     public ResponseEntity<List<BoardResponseDto>> getAll() {
-        return new ResponseEntity<>(boardService.getAllBoard(), HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(boardService.getAllBoard());
     }
 
-    // 상세 조회
+    // 게시글 상세 조회
     @GetMapping("/posts/{id}")
     public ResponseEntity<BoardResponseDto> getOne(@PathVariable Integer id) {
-        return new ResponseEntity<>(boardService.getOneBoard(id), HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(boardService.getOneBoard(id));
     }
 }
