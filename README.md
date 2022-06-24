@@ -21,4 +21,5 @@ h2, lombok, jpa, web 사용
 <br>
 - UsersController, BoardController ResponseEntity 수정
 - 회원, 게시글 서비스, 컨트롤러 추가 (BoardByUserService, BoardByUserController)
-- 회원이 생성한 게시글, 회원이 생성한 게시글 조회 기능
+- 회원이 생성한 게시글, 회원이 생성한 게시글 조회 기능 추가
+- AllUserAndBoardDto 추가, 회원과 게시글 전체 목록을 조회하는 기능 추가
