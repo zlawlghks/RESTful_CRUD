@@ -50,4 +50,12 @@ public class BoardByUserService {
                     .collect(Collectors.toList());
         }
     }
+
+    // 유저 + 게시글 전체 조회
+    public List<AllUserAndBoardDto> getALlUserAndBoard() {
+        List<Users> users = usersRepository.findAll();
+        return users.stream()
+                .map(AllUserAndBoardDto::new)
+                .collect(Collectors.toList());
+    }
 }
